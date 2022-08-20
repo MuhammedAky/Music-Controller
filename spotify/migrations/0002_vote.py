@@ -1,23 +1,23 @@
 from django.db import migrations, models
+import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
 
-    initial = True
-
     dependencies = [
+        ('api', '0003_room_current_song'),
+        ('spotify', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Room',
+            name='Vote',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('code', models.CharField(default='', max_length=8, unique=True)),
-                ('host', models.CharField(max_length=50, unique=True)),
-                ('guest_can_pause', models.BooleanField(default=False)),
-                ('votes_to_skip', models.IntegerField(default=1)),
+                ('user', models.CharField(max_length=50, unique=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('song_id', models.CharField(max_length=50)),
+                ('room', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.room')),
             ],
         ),
     ]
